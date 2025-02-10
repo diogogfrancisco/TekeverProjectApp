@@ -1,94 +1,96 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="TekeverProject.Views.DetailView">
+	<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+		<StackPanel Margin="20">
 
-	<StackPanel Margin="20">
-		<StackPanel IsEnabled="{Binding IsInterfaceEditable}">
-			<TextBlock Text="Network Interface Details" FontSize="20" FontWeight="Bold"/>
+			<StackPanel IsEnabled="{Binding IsInterfaceEditable}">
+				<TextBlock Text="Network Interface Details" FontSize="20" FontWeight="Bold"/>
 
-			<TextBlock Text="Name:" FontWeight="Bold"/>
-			<TextBlock Text="{Binding SelectedItem.Name}"/>
+				<TextBlock Text="Name:" FontWeight="Bold"/>
+				<TextBlock Text="{Binding SelectedItem.Name}"/>
 
-			<TextBlock Text="Network Interface Type:" FontWeight="Bold"/>
-			<TextBlock Text="{Binding SelectedItem.NetworkInterfaceType}"/>
+				<TextBlock Text="Network Interface Type:" FontWeight="Bold"/>
+				<TextBlock Text="{Binding SelectedItem.NetworkInterfaceType}"/>
 
-			<TextBlock Text="Operational Status:" FontWeight="Bold"/>
-			<TextBlock Text="{Binding SelectedItem.OperationalStatus}"/>
+				<TextBlock Text="Operational Status:" FontWeight="Bold"/>
+				<TextBlock Text="{Binding SelectedItem.OperationalStatus}"/>
 
-			<TextBlock Text="MAC Address:" FontWeight="Bold"/>
-			<TextBlock Text="{Binding SelectedItem.MAC}"/>
+				<TextBlock Text="MAC Address:" FontWeight="Bold"/>
+				<TextBlock Text="{Binding SelectedItem.MAC}"/>
 
-			<StackPanel Orientation="Vertical" Margin="0,10,0,0">
-				<TextBlock Text="Gateway:" FontWeight="Bold" Margin="0,0,0,5"/>
+				<StackPanel Orientation="Vertical" Margin="0,10,0,0">
+					<TextBlock Text="Gateway:" FontWeight="Bold" Margin="0,0,0,5"/>
+					<StackPanel Orientation="Horizontal">
+						<TextBox Text="{Binding Gateway, Mode=TwoWay}" Watermark="{Binding GatewayWatermark}" Width="150" Margin="0,0,5,0"/>
+						<Button Content="Apply" Command="{Binding ApplyGatewayCommand}" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+					</StackPanel>
+				</StackPanel>
+
+				<StackPanel Orientation="Vertical" Margin="0,10,0,0">
+					<TextBlock Text="DNS:" FontWeight="Bold" Margin="0,0,0,5"/>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+
+						<StackPanel Grid.Column="0">
+							<TextBox Text="{Binding DNS1, Mode=TwoWay}" Watermark="{Binding DNS1Watermark}" Width="150" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+							<TextBox Text="{Binding DNS2, Mode=TwoWay}" Watermark="{Binding DNS2Watermark}" Width="150" Margin="0,0,0,5" HorizontalAlignment="Left"/>
+						</StackPanel>
+
+						<Button Grid.Column="1" Content="Apply" Command="{Binding ApplyDNSCommand}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+					</Grid>
+				</StackPanel>
+
+				<TextBlock Text="IP Addresses:" FontWeight="Bold" Margin="0,10,0,0"/>
+				<DataGrid ItemsSource="{Binding IPAddresses}"
+						  AutoGenerateColumns="False"
+						  Height="150" IsReadOnly="True"
+						  CanUserSortColumns="False"
+						  SelectionMode="Single"
+						  SelectedItem="{Binding SelectedIPAddress, Mode=TwoWay}">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
+						<DataGridTextColumn Header="Address" Binding="{Binding Address}" IsReadOnly="True"/>
+						<DataGridTextColumn Header="Subnet Mask" Binding="{Binding IPv4Mask}" IsReadOnly="True"/>
+
+						<DataGridTemplateColumn Header="Actions">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<Button Content="Delete"
+											Command="{Binding DataContext.DeleteIPv4Command, RelativeSource={RelativeSource AncestorType=UserControl}}"
+											CommandParameter="{Binding Address}"
+											IsVisible="{Binding CanDelete}"
+											Width="80" 
+											HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+
+				<TextBlock Text="Add New IPv4:" FontWeight="Bold" Margin="0,10,0,0"/>
 				<StackPanel Orientation="Horizontal">
-					<TextBox Text="{Binding Gateway, Mode=TwoWay}" Watermark="{Binding GatewayWatermark}" Width="150" Margin="0,0,5,0"/>
-					<Button Content="Apply" Command="{Binding ApplyGatewayCommand}" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+					<TextBox Text="{Binding NewIPv4Address, Mode=TwoWay}" Watermark="{Binding NewIPv4Watermark}" Width="150"/>
+					<TextBox Text="{Binding NewIPv4SubnetMask, Mode=TwoWay}" Watermark="{Binding NewIPv4SubnetMaskWatermark}" Width="150" Margin="5,0,0,0"/>
+					<Button Content="Add" Command="{Binding AddIPv4Command}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+				</StackPanel>
+
+				<TextBlock Text="Replace IPv4:" FontWeight="Bold" Margin="0,10,0,0"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBox Text="{Binding ReplaceIPv4Address, Mode=TwoWay}" Watermark="{Binding ReplaceIPv4Watermark}" Width="150"/>
+					<TextBox Text="{Binding ReplaceIPv4SubnetMask, Mode=TwoWay}" Watermark="{Binding ReplaceIPv4SubnetMaskWatermark}" Width="150" Margin="5,0,0,0"/>
+					<Button Content="Replace" Command="{Binding ReplaceIPv4Command}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 				</StackPanel>
 			</StackPanel>
-
-			<StackPanel Orientation="Vertical" Margin="0,10,0,0">
-				<TextBlock Text="DNS:" FontWeight="Bold" Margin="0,0,0,5"/>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
-						<ColumnDefinition Width="Auto"/>
-					</Grid.ColumnDefinitions>
-
-					<StackPanel Grid.Column="0">
-						<TextBox Text="{Binding DNS1, Mode=TwoWay}" Watermark="{Binding DNS1Watermark}" Width="150" Margin="0,0,0,5" HorizontalAlignment="Left"/>
-						<TextBox Text="{Binding DNS2, Mode=TwoWay}" Watermark="{Binding DNS2Watermark}" Width="150" Margin="0,0,0,5" HorizontalAlignment="Left"/>
-					</StackPanel>
-
-					<Button Grid.Column="1" Content="Apply" Command="{Binding ApplyDNSCommand}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-				</Grid>
-			</StackPanel>
-
-			<TextBlock Text="IP Addresses:" FontWeight="Bold" Margin="0,10,0,0"/>
-			<DataGrid ItemsSource="{Binding IPAddresses}"
-					  AutoGenerateColumns="False"
-					  Height="150" IsReadOnly="True"
-					  CanUserSortColumns="False"
-					  SelectionMode="Single"
-					  SelectedItem="{Binding SelectedIPAddress, Mode=TwoWay}">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Type" Binding="{Binding Type}" IsReadOnly="True"/>
-					<DataGridTextColumn Header="Address" Binding="{Binding Address}" IsReadOnly="True"/>
-					<DataGridTextColumn Header="Subnet Mask" Binding="{Binding IPv4Mask}" IsReadOnly="True"/>
-
-					<DataGridTemplateColumn Header="Actions">
-						<DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<Button Content="Delete"
-										Command="{Binding DataContext.DeleteIPv4Command, RelativeSource={RelativeSource AncestorType=UserControl}}"
-										CommandParameter="{Binding Address}"
-										IsVisible="{Binding CanDelete}"
-										Width="80" 
-										HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-							</DataTemplate>
-						</DataGridTemplateColumn.CellTemplate>
-					</DataGridTemplateColumn>
-				</DataGrid.Columns>
-			</DataGrid>
-
-			<TextBlock Text="Add New IPv4:" FontWeight="Bold" Margin="0,10,0,0"/>
-			<StackPanel Orientation="Horizontal">
-				<TextBox Text="{Binding NewIPv4Address, Mode=TwoWay}" Watermark="{Binding NewIPv4Watermark}" Width="150"/>
-				<TextBox Text="{Binding NewIPv4SubnetMask, Mode=TwoWay}" Watermark="{Binding NewIPv4SubnetMaskWatermark}" Width="150" Margin="5,0,0,0"/>
-				<Button Content="Add" Command="{Binding AddIPv4Command}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-			</StackPanel>
-
-			<TextBlock Text="Replace IPv4:" FontWeight="Bold" Margin="0,10,0,0"/>
-			<StackPanel Orientation="Horizontal">
-				<TextBox Text="{Binding ReplaceIPv4Address, Mode=TwoWay}" Watermark="{Binding ReplaceIPv4Watermark}" Width="150"/>
-				<TextBox Text="{Binding ReplaceIPv4SubnetMask, Mode=TwoWay}" Watermark="{Binding ReplaceIPv4SubnetMaskWatermark}" Width="150" Margin="5,0,0,0"/>
-				<Button Content="Replace" Command="{Binding ReplaceIPv4Command}" Width="80" Margin="5,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-			</StackPanel>
-		</StackPanel>
 		
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,50,0,0">
-			<Button Content="Back" Command="{Binding GoBackToTableCommand}" Width="80" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-			<Button Content="Reload" Command="{Binding ReloadPageCommand}" Width="80" Margin="30,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-		</StackPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,50,0,0">
+				<Button Content="Back" Command="{Binding GoBackToTableCommand}" Width="80" Margin="0,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+				<Button Content="Reload" Command="{Binding ReloadPageCommand}" Width="80" Margin="30,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+			</StackPanel>
 		
-	</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
 </UserControl>
