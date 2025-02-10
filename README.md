@@ -1,1 +1,1 @@
-# tekever-project
+# Executável --> Releases\TekeverProject.Desktop.exe
