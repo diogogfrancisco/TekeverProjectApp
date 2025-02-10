@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TekeverProject.Views.TableView">
+
+	<DataGrid ItemsSource="{Binding NetworkInterfaceItems}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+			  CanUserSortColumns="False">
+		<DataGrid.Columns>
+			<DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+			<DataGridTextColumn Header="Network Interface Type" Binding="{Binding NetworkInterfaceType}" />
+			<DataGridTextColumn Header="Operational Status" Binding="{Binding OperationalStatus}" />
+			<DataGridTextColumn Header="MAC Address" Binding="{Binding MAC}" />
+
+			<DataGridTemplateColumn Header="Consult">
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate>
+						<Button Content="Consult"
+                                Command="{Binding DataContext.ShowDetailsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                CommandParameter="{Binding}" />
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+		</DataGrid.Columns>
+	</DataGrid>
+
+</UserControl>

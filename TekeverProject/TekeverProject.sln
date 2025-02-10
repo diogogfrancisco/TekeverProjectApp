@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekeverProject", "TekeverProject.csproj", "{EABF4ED2-F66B-4016-A92E-8CB9B57BBD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekeverProject.Desktop", "..\TekeverProject.Desktop\TekeverProject.Desktop.csproj", "{748E219F-5AE7-42E2-A8AD-E6F657DA058A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EABF4ED2-F66B-4016-A92E-8CB9B57BBD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EABF4ED2-F66B-4016-A92E-8CB9B57BBD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EABF4ED2-F66B-4016-A92E-8CB9B57BBD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EABF4ED2-F66B-4016-A92E-8CB9B57BBD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748E219F-5AE7-42E2-A8AD-E6F657DA058A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748E219F-5AE7-42E2-A8AD-E6F657DA058A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748E219F-5AE7-42E2-A8AD-E6F657DA058A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748E219F-5AE7-42E2-A8AD-E6F657DA058A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
